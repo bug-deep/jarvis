@@ -1,19 +1,18 @@
 @echo off
-chcp 65001 >nul
 setlocal
 set "REPO=bug-deep/jarvis"
 set "TARGET=%LOCALAPPDATA%\Jarvis"
 set "ZIP=%TEMP%\jarvis-portable.zip"
 set "CLOUD=%~1"
 
-if "%CLOUD%"=="" set /p "CLOUD=Адрес сервера (Enter — пропустить): "
+if "%CLOUD%"=="" set /p "CLOUD=Server URL (Enter to skip): "
 
-echo Скачиваю Джарвиса...
+echo Downloading Jarvis...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol=3072; Invoke-WebRequest -Uri 'https://github.com/%REPO%/releases/latest/download/Jarvis-portable-win64.zip' -OutFile '%ZIP%' -UseBasicParsing"
 if not exist "%ZIP%" goto fail
 
 if exist "%TARGET%" rmdir /s /q "%TARGET%"
-echo Распаковываю...
+echo Unpacking...
 powershell -NoProfile -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path '%ZIP%' -DestinationPath '%LOCALAPPDATA%' -Force"
 
 if not "%CLOUD%"=="" powershell -NoProfile -Command "$ProgressPreference='SilentlyContinue'; @{cloudUrl='%CLOUD%';port=8095} | ConvertTo-Json | Set-Content -Encoding ASCII '%TARGET%\app\jarvis.json'"
@@ -24,6 +23,6 @@ start "" "%TARGET%\Jarvis.bat"
 exit /b 0
 
 :fail
-echo Не получилось скачать. Проверь интернет и попробуй ещё раз.
+echo Download failed. Check the internet and try again.
 pause
 exit /b 1

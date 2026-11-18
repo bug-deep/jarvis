@@ -1,20 +1,21 @@
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 $repo = 'bug-deep/jarvis'
 $target = Join-Path $env:LOCALAPPDATA 'Jarvis'
 $zip = Join-Path $env:TEMP 'jarvis-portable.zip'
 $cloud = $env:JARVIS_CLOUD
 
 if (-not $cloud) {
-  $cloud = Read-Host 'Адрес сервера (Enter — пропустить)'
+  $cloud = Read-Host 'Server URL (Enter to skip)'
 }
 
-Write-Host 'Скачиваю Джарвиса...'
+Write-Host 'Downloading Jarvis...'
 Invoke-WebRequest -Uri "https://github.com/$repo/releases/latest/download/Jarvis-portable-win64.zip" -OutFile $zip -UseBasicParsing
 
 if (Test-Path $target) { Remove-Item $target -Recurse -Force }
-Write-Host 'Распаковываю...'
+Write-Host 'Unpacking...'
 Expand-Archive -Path $zip -DestinationPath $env:LOCALAPPDATA -Force
 
 if ($cloud) {
@@ -29,5 +30,5 @@ $lnk.WorkingDirectory = $target
 $lnk.IconLocation = Join-Path $target 'icon.ico'
 $lnk.Save()
 
-Write-Host 'Готово. Запускаю Джарвиса.'
+Write-Host 'Done. Starting Jarvis.'
 Start-Process (Join-Path $target 'Jarvis.bat')
