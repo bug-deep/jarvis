@@ -1,4 +1,6 @@
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $repo = 'bug-deep/jarvis'
 $target = Join-Path $env:LOCALAPPDATA 'Jarvis'
 $zip = Join-Path $env:TEMP 'jarvis-portable.zip'

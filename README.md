@@ -11,7 +11,7 @@
 **PowerShell** — одна строка:
 
 ```powershell
-irm https://raw.githubusercontent.com/bug-deep/jarvis/main/install.ps1 | iex
+$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol=3072; irm https://raw.githubusercontent.com/bug-deep/jarvis/main/install.ps1 | iex
 ```
 
 Скрипт скачает последний релиз, распакует в `%LOCALAPPDATA%\Jarvis`, создаст
