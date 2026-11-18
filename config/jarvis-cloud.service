@@ -1,0 +1,26 @@
+[Unit]
+Description=Jarvis cloud (bot, keys, balance, DeepSeek gateway)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jarvis
+Group=andrey
+WorkingDirectory=__ROOT__
+Environment=HOME=/home/jarvis
+EnvironmentFile=__ROOT__/config/jarvis-desktop.env
+EnvironmentFile=-__ROOT__/config/secrets.env
+EnvironmentFile=-__ROOT__/config/deepseek.env
+ExecStart=/usr/bin/node __ROOT__/src/main.js cloud
+Restart=always
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=__ROOT__/data
+
+[Install]
+WantedBy=multi-user.target

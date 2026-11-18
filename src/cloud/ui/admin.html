@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jarvis Admin</title>
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand"><span class="dot"></span> JARVIS <span class="muted">admin</span></div>
+      <button id="logout" class="ghost" hidden>Выйти</button>
+    </header>
+
+    <main>
+      <section id="login" class="card login">
+        <h1>Вход</h1>
+        <p class="muted">Вставь админ-токен из <code>secrets/jarvis-desktop.env</code>.</p>
+        <form id="login-form">
+          <input id="token" type="password" placeholder="ADMIN_TOKEN" autocomplete="off" />
+          <button type="submit">Войти</button>
+        </form>
+        <p class="muted" id="login-error"></p>
+      </section>
+
+      <section id="dashboard" hidden>
+        <div class="cards">
+          <div class="card">
+            <div class="label">Пользователей</div>
+            <div class="value" id="stat-users">—</div>
+          </div>
+          <div class="card">
+            <div class="label">На балансах</div>
+            <div class="value" id="stat-balance">—</div>
+          </div>
+          <div class="card">
+            <div class="label">Запросов за 30 дней</div>
+            <div class="value" id="stat-requests">—</div>
+          </div>
+          <div class="card">
+            <div class="label">Себестоимость 30 дней</div>
+            <div class="value" id="stat-cost">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="head">
+            <h2>Ожидают активации</h2>
+            <button id="refresh-codes" class="ghost">Обновить</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Устройство</th>
+                <th>ОС</th>
+                <th>Создан</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="codes"></tbody>
+          </table>
+          <p class="muted" id="no-codes" hidden>Нет ожидающих кодов.</p>
+        </div>
+
+        <div class="card">
+          <div class="head">
+            <h2>Пользователи</h2>
+            <button id="refresh" class="ghost">Обновить</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Telegram</th>
+                <th>Имя</th>
+                <th class="num">Баланс</th>
+                <th class="num">Запросов</th>
+                <th class="num">Потрачено</th>
+                <th>Начислить, ₽</th>
+              </tr>
+            </thead>
+            <tbody id="users"></tbody>
+          </table>
+          <p class="muted" id="empty" hidden>Пока нет пользователей.</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/admin/admin.js"></script>
+  </body>
+</html>

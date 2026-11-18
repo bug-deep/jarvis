@@ -1,0 +1,6 @@
+# prettier не трогает прозу и сгенерированное
+*.md
+package.json
+package-lock.json
+data/
+dist/

@@ -1,0 +1,39 @@
+# данные и артефакты (AGENTS.md §3)
+data/
+*.log
+*.tar.gz
+*.zip
+*.bak
+
+# секреты (§5)
+.env
+.env.*
+!.env.example
+config/*.env
+!config/*.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+known_hosts
+netrc
+.npmrc
+
+# окружения
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# сборки
+dist/
+
+# прочее
+.DS_Store
+.idea/
+.vscode/

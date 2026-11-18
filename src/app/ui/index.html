@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Джарвис</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="pulse"></span> JARVIS <span class="ver">0.2</span></div>
+
+        <button class="new-chat" id="new-chat">＋ Новый чат</button>
+
+        <div class="sessions" id="sessions"></div>
+
+        <div class="side-foot">
+          <button class="side-btn" id="settings-btn">⚙ Настройки</button>
+          <div class="balance">
+            <span>Баланс</span>
+            <b id="balance">—</b>
+          </div>
+          <div class="status" id="status">Не активирован</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <input class="title-input" id="title" value="Новый чат" spellcheck="false" />
+          <div class="top-meta">
+            <button class="badge" id="approval-badge" title="Режим подтверждений">Авто</button>
+            <span class="badge muted" id="model-badge">flash</span>
+            <button class="icon-btn" id="stop" hidden title="Остановить">■</button>
+          </div>
+        </header>
+
+        <div class="chat" id="chat"></div>
+
+        <form class="composer" id="composer">
+          <div class="composer-box">
+            <textarea id="input" rows="1" placeholder="Опиши задачу…"></textarea>
+            <div class="composer-actions">
+              <span class="hint">Enter — отправить · Shift+Enter — перенос строки</span>
+              <button id="send" type="submit" title="Отправить">↑</button>
+            </div>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <div class="overlay" id="settings" hidden>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Настройки</h2>
+          <button class="icon-btn" id="settings-close" title="Закрыть">×</button>
+        </div>
+
+        <section class="setting">
+          <h3>Подтверждения</h3>
+          <label class="choice">
+            <input type="radio" name="approval" value="auto" />
+            <span><b>Авто</b> — выполнять инструменты без вопросов. Для своих задач.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="approval" value="ask" />
+            <span><b>Спрашивать</b> — подтверждать запись, удаление и команды.</span>
+          </label>
+        </section>
+
+        <section class="setting">
+          <h3>Доступ к компьютеру</h3>
+          <label class="choice">
+            <input type="radio" name="mode" value="workspace" />
+            <span><b>Рабочая папка</b> — писать можно только внутри неё.</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="mode" value="full" />
+            <span><b>Весь компьютер</b> — любые файлы, без ограничения папкой.</span>
+          </label>
+          <input
+            class="field"
+            id="workspace"
+            spellcheck="false"
+            placeholder="C:\Users\Andrey\Jarvis"
+          />
+        </section>
+
+        <section class="setting">
+          <h3>Сервер</h3>
+          <input
+            class="field"
+            id="cloud-url"
+            spellcheck="false"
+            placeholder="https://jarvis.example.com"
+          />
+          <p class="muted">После смены сервера устройство нужно активировать заново.</p>
+        </section>
+
+        <section class="setting">
+          <h3>Устройство</h3>
+          <button class="danger" id="deactivate">Отключить это устройство</button>
+        </section>
+
+        <div class="panel-foot">
+          <span class="muted" id="settings-note"></span>
+          <button id="settings-save">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="activate" hidden>
+      <div class="modal">
+        <h2>Подключи Джарвиса</h2>
+        <p>Открой бота и пришли ему код — он активирует устройство.</p>
+        <div class="code" id="code">••••••••</div>
+        <a class="button" id="bot-link" target="_blank" rel="noopener" hidden>Открыть бота</a>
+        <div class="hint" id="activate-status">Ждём подтверждения…</div>
+        <button class="link" id="new-code">Получить новый код</button>
+
+        <details class="server-setup">
+          <summary>Сервер: <span id="cloud-label">—</span></summary>
+          <div class="row">
+            <input
+              class="field"
+              id="cloud-input"
+              spellcheck="false"
+              placeholder="https://jarvis.example.com"
+            />
+            <button class="ghost" id="cloud-save">Применить</button>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="overlay" id="confirm" hidden>
+      <div class="modal wide">
+        <div class="confirm-name" id="confirm-name">Инструмент</div>
+        <pre id="confirm-args"></pre>
+        <p class="muted">Джарвис просит разрешение на действие на твоём компьютере.</p>
+        <div class="row end">
+          <button class="ghost" id="deny">Отклонить</button>
+          <button id="allow">Разрешить</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

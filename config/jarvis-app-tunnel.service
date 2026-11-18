@@ -1,0 +1,23 @@
+[Unit]
+Description=Jarvis app reverse SSH tunnel to PC (PC localhost:8096 -> server)
+After=network-online.target jarvis-app.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jarvis
+Group=andrey
+Environment=HOME=/home/jarvis
+ExecStart=/usr/bin/ssh -NT \
+  -o BatchMode=yes \
+  -o ExitOnForwardFailure=yes \
+  -o ConnectTimeout=10 \
+  -o ServerAliveInterval=30 \
+  -o ServerAliveCountMax=3 \
+  -R 127.0.0.1:8096:127.0.0.1:8096 pc
+Restart=always
+RestartSec=20
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

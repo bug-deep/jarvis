@@ -1,0 +1,87 @@
+{
+  "name": "jarvis-desktop",
+  "version": "0.2.0",
+  "description": "Jarvis: агент на ПК, доступ по Telegram-ключу",
+  "type": "module",
+  "private": true,
+  "main": "src/electron/main.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/main.js app",
+    "app": "node src/main.js app",
+    "cloud": "node src/main.js cloud",
+    "desktop": "electron .",
+    "pack": "electron-builder --dir",
+    "dist:linux": "electron-builder --linux",
+    "dist:win": "electron-builder --win nsis",
+    "lint": "eslint . && prettier --check .",
+    "format": "eslint . --fix && prettier --write .",
+    "test": "node --test",
+    "audit": "npm audit --omit=dev --audit-level=high"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "electron": "^45.3.4",
+    "electron-builder": "^26.18.0",
+    "eslint": "^9.0.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.3.0",
+    "resedit": "^3.1.1"
+  },
+  "dependencies": {
+    "@fastify/static": "^10.1.11",
+    "better-sqlite3": "^13.2.0",
+    "fastify": "^5.12.8",
+    "grammy": "^1.46.0",
+    "node-fetch": "^3.3.2",
+    "socks-proxy-agent": "^10.1.0"
+  },
+  "build": {
+    "appId": "ru.jarvis.desktop",
+    "productName": "Jarvis",
+    "asar": true,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/app/**/*",
+      "src/shared/**/*",
+      "src/electron/**/*",
+      "build/icon.png",
+      "package.json",
+      "!node_modules/better-sqlite3/**",
+      "!node_modules/grammy/**",
+      "!node_modules/.bin/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Jarvis"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility",
+      "icon": "build/icon.png"
+    }
+  },
+  "author": "Dev <dev@example.invalid>"
+}
