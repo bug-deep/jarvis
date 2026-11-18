@@ -5,7 +5,8 @@ set "TARGET=%LOCALAPPDATA%\Jarvis"
 set "ZIP=%TEMP%\jarvis-portable.zip"
 set "CLOUD=%~1"
 
-if "%CLOUD%"=="" set /p "CLOUD=Server URL (Enter to skip): "
+if "%CLOUD%"=="" set /p "CLOUD=Server URL (required): "
+if "%CLOUD%"=="" (echo Server URL is required. & pause & exit /b 1)
 
 echo Downloading Jarvis...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol=3072; Invoke-WebRequest -Uri 'https://github.com/%REPO%/releases/latest/download/Jarvis-portable-win64.zip' -OutFile '%ZIP%' -UseBasicParsing"

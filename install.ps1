@@ -8,7 +8,10 @@ $zip = Join-Path $env:TEMP 'jarvis-portable.zip'
 $cloud = $env:JARVIS_CLOUD
 
 if (-not $cloud) {
-  $cloud = Read-Host 'Server URL (Enter to skip)'
+  $cloud = Read-Host 'Server URL (required)'
+}
+while (-not $cloud) {
+  $cloud = Read-Host 'Server URL is required. Paste the address'
 }
 
 Write-Host 'Downloading Jarvis...'
