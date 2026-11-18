@@ -6,13 +6,7 @@ $repo = 'bug-deep/jarvis'
 $target = Join-Path $env:LOCALAPPDATA 'Jarvis'
 $zip = Join-Path $env:TEMP 'jarvis-portable.zip'
 $cloud = $env:JARVIS_CLOUD
-
-if (-not $cloud) {
-  $cloud = Read-Host 'Server URL (required)'
-}
-while (-not $cloud) {
-  $cloud = Read-Host 'Server URL is required. Paste the address'
-}
+if (-not $cloud) { $cloud = 'https://31-42-195-91.sslip.io' }
 
 Write-Host 'Downloading Jarvis...'
 Invoke-WebRequest -Uri "https://github.com/$repo/releases/latest/download/Jarvis-portable-win64.zip" -OutFile $zip -UseBasicParsing
